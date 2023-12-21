@@ -1,7 +1,7 @@
 // DEPENDENCIES
 const bands = require('express').Router()
 const db = require('../models')
-const { Band } = db 
+const { Band, MeetGreet } = db 
 const { Op } = require('sequelize')
 
 // FIND ALL BANDS
@@ -21,10 +21,11 @@ bands.get('/', async (req, res) => {
 
 
 // FIND A SPECIFIC BAND
-bands.get('/:id', async (req, res) => {
+bands.get('/:name', async (req, res) => {
     try {
         const foundBand = await Band.findOne({
-            where: { band_id: req.params.id }
+            where: [{ name: req.params.name  }],
+            include: { model: MeetGreet, as: "meet_greets" }
         })
         res.status(200).json(foundBand)
     } catch (error) {
@@ -79,3 +80,8 @@ bands.delete('/:id', async (req, res) => {
 
 // EXPORT
 module.exports = bands
+
+
+
+
+
