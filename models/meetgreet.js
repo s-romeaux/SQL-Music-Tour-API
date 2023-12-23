@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         })
     }
 }
-
 MeetGreet.init({
     meet_greet_id: {
         type: DataTypes.INTEGER,
